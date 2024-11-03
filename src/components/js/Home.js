@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+
 import { LoginContext } from '../context/Context'
 
 const Home = () => {
@@ -40,6 +41,7 @@ const Home = () => {
 
 
   return (
+    <>
     <div>{loginData && loginData.ValidUser ? (
       loginData.ValidUser.fname
     ) : (
@@ -55,6 +57,8 @@ const Home = () => {
           <CircularProgress />
         </Box>
     )}</div>
+    <NavLink to="/expense"><button>Expenses</button></NavLink>
+    </>
   )
 }
 

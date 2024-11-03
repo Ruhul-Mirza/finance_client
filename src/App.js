@@ -8,6 +8,9 @@ import Box from "@mui/material/Box";
 import Error from "./components/js/Error";
 import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
+import Expense from "./components/js/Expense";
+import {Provider} from "react-redux";
+import {store} from "./app/store";
 
 function App() {
   const [data, setData] = useState(false);
@@ -47,7 +50,7 @@ function App() {
 }, [])
 
   return (
-    <>
+    <Provider store={store}>
       {data ? (
         <>
           <Header />
@@ -56,6 +59,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Error />} />
+            <Route path="/expense" element={<Expense/>}></Route>
           </Routes>
         </>
       ) : (
@@ -71,7 +75,7 @@ function App() {
           <CircularProgress />
         </Box>
       )}
-    </>
+    </Provider>
   );
 }
 

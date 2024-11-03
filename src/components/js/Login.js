@@ -52,7 +52,7 @@ function Login() {
   return (
     <>
       <div className="form_container">
-        <form action="" method="">
+        <form>
           <h1>Welcome Back, Log in</h1>
           <p>Hi, we are glad you are back , please login </p>
           <label htmlFor="email">Email</label>

@@ -53,7 +53,7 @@ function Register() {
             const res = await data.json()
             console.log(res)
 
-            setInputValue({...inputVal,email:"",password:""})
+            setInputValue({...inputVal,fname:"",email:"",password:"",cpassword:""})
             
         }
     }
