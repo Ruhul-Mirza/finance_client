@@ -60,7 +60,7 @@ const Expense = () => {
     const token = localStorage.getItem("token");
   
     try {
-      const response = await fetch("/expense", {
+      const response = await fetch("http://localhost:6999/expense", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,9 +76,9 @@ const Expense = () => {
           othersAmount,
         }),
       });
-  
+      
       const data = await response.json();
-  
+      
       if (!response.ok) {
         throw new Error(data.message || "Error saving expense");
       }
