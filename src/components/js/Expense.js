@@ -57,14 +57,14 @@ const Expense = () => {
       return alert("Please enter your others cost.");
     }
   
-    const token = localStorage.getItem("token");
-  
+    const token = localStorage.getItem("userdatatoken")
+    console.log(token)
     try {
       const response = await fetch("http://localhost:6999/expense", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authenticate": `Bearer ${token}`
         },
         body: JSON.stringify({
           home,
@@ -74,6 +74,7 @@ const Expense = () => {
           utilitiesAmount,
           personalAmount,
           othersAmount,
+          token 
         }),
       });
       
@@ -82,7 +83,13 @@ const Expense = () => {
       if (!response.ok) {
         throw new Error(data.message || "Error saving expense");
       }
-  
+      setInputValue({...inputVal, home:"own",rentAmount:"",
+        foodAmount:"",
+        entertainmentAmount:"",
+        utilitiesAmount:"",
+        personalAmount:"",
+        othersAmount:"",})
+        setSelectRadio("own");  
       alert("Expense saved successfully!");
     } catch (error) {
       alert(error.message);

@@ -9,8 +9,7 @@ import Error from "./components/js/Error";
 import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
 import Expense from "./components/js/Expense";
-import {Provider} from "react-redux";
-import {store} from "./app/store";
+
 
 function App() {
   const [data, setData] = useState(false);
@@ -50,9 +49,9 @@ function App() {
 }, [])
 
   return (
-    <Provider store={store}>
+    <>
       {data ? (
-        <>
+        <div>
           <Header />
           <Routes>
             <Route path="/" element={<Login />} />
@@ -61,7 +60,7 @@ function App() {
             <Route path="*" element={<Error />} />
             <Route path="/expense" element={<Expense/>}></Route>
           </Routes>
-        </>
+        </div>
       ) : (
         <Box
           sx={{
@@ -75,7 +74,7 @@ function App() {
           <CircularProgress />
         </Box>
       )}
-    </Provider>
+</>
   );
 }
 
