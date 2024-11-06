@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 // Define the validation schema
@@ -28,6 +29,7 @@ const expenseSchema = z.object({
 })
 
 const Expense = () => {
+  const navigate = useNavigate()
   const [inputVal, setInputValue] = useState({
     home: "own",
     rentAmount: "",
@@ -147,7 +149,8 @@ if (total > (parseFloat(monthlyAmount) || 0)) {
         monthlyAmount: "",
       });
       setSelectRadio("own");
-      alert("Expense saved successfully!");
+      // alert("Expense saved successfully!");
+      navigate("/chart")
     } catch (error) {
       alert(error.message);
     }
