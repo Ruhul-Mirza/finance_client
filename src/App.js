@@ -9,8 +9,7 @@ import Error from "./components/js/Error";
 import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
 import Expense from "./components/js/Expense";
-import Chart from "./components/js/Chart";
-
+import PieChart from "./components/js/Chart";
 
 function App() {
   const [data, setData] = useState(false);
@@ -60,7 +59,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Error />} />
             <Route path="/expense" element={<Expense/>}></Route>
-            <Route path="/chart" element={<Chart/>}></Route>
+            <Route path="/chart" element={<PieChart/>}></Route>
 
           </Routes>
         </div>
