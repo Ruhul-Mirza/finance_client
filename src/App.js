@@ -10,6 +10,7 @@ import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
 import Expense from "./components/js/Expense";
 import PieChart from "./components/js/Chart";
+import ExpenseData from "./components/js/ExpenseData";
 
 function App() {
   const [data, setData] = useState(false);
@@ -59,7 +60,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Error />} />
             <Route path="/expense" element={<Expense/>}></Route>
-            <Route path="/chart" element={<PieChart/>}></Route>
+            <Route path="/expensedata" element={<ExpenseData/>}></Route>
+            <Route path="/chart/:expenseId" element={<PieChart/>}></Route>
 
           </Routes>
         </div>
