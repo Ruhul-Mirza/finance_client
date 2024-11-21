@@ -11,6 +11,7 @@ import { LoginContext } from "./components/context/Context";
 import Expense from "./components/js/Expense";
 import PieChart from "./components/js/Chart";
 import ExpenseData from "./components/js/ExpenseData";
+import SuggestionPage from "./components/js/Suggestion";
 
 function App() {
   const [data, setData] = useState(false);
@@ -62,7 +63,7 @@ function App() {
             <Route path="/expense" element={<Expense/>}></Route>
             <Route path="/expensedata" element={<ExpenseData/>}></Route>
             <Route path="/chart/:expenseId" element={<PieChart/>}></Route>
-
+            <Route path="/suggestion/:id" element={<SuggestionPage />} />
           </Routes>
         </div>
       ) : (
