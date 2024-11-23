@@ -6,13 +6,18 @@ import ExpenseData from "./ExpenseData";
 // Validation schema remains unchanged
 const expenseSchema = z.object({
   home: z.enum(["own", "rent"]),
-  rentAmount: z
-    .string()
-    .trim()
-    .min(1)
-    .regex(/^[0-9]+(\.[0-9]+)?$/, {
-      message: "Rent amount is required and must be a valid number.",
-    }),
+  rentAmount: z.preprocess(
+    (value, ctx) => {
+      // If home is 'own', coerce rentAmount to 0
+      if (ctx?.parent?.home === "own") {
+        return 0;
+      }
+      return value;
+    },
+    z.coerce.number().nonnegative().refine((val) => val >= 0, {
+      message: "Rent amount must be a valid non-negative number.",
+    })
+  ),
   foodAmount: z
     .string()
     .trim()

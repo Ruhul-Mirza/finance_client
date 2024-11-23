@@ -10,7 +10,7 @@ import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
 import Expense from "./components/js/Expense";
 import PieChart from "./components/js/Chart";
-import ExpenseData from "./components/js/ExpenseData";
+import ForgotPassword from "./components/js/forgotpassword";
 import SuggestionPage from "./components/js/Suggestion";
 
 function App() {
@@ -61,7 +61,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Error />} />
             <Route path="/expense" element={<Expense/>}></Route>
-            <Route path="/expensedata" element={<ExpenseData/>}></Route>
+            <Route path="/forgot-password" element={<ForgotPassword/>}></Route>
             <Route path="/chart/:expenseId" element={<PieChart/>}></Route>
             <Route path="/suggestion/:id" element={<SuggestionPage />} />
           </Routes>

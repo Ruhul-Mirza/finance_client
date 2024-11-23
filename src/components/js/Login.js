@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate()
@@ -19,36 +19,49 @@ function Login() {
         })
     }
 
-    const loginUser = async (e)=>{
-        e.preventDefault();
-        const {email,password} = inputVal;
-        if(email === ""){
-            alert("pleaser enter your email");
-        }else if(!email.includes("@")){
-            alert("please enter a valid email")
-        }else if(password === ""){
-            alert("password field cannot be empty")
-        }else if(password.length < 6){
-            alert("password length is too small atleast 8 character required")
-        }else{
-          const data = await fetch("/",{
-            method:"POST",
-            headers:{
-              "Content-Type":"application/json"
+    const loginUser = async (e) => {
+      e.preventDefault();
+      const { email, password } = inputVal;
+    
+      if (email === "") {
+        alert("Please enter your email");
+      } else if (!email.includes("@")) {
+        alert("Please enter a valid email");
+      } else if (password === "") {
+        alert("Password field cannot be empty");
+      } else if (password.length < 6) {
+        alert("Password length is too small, at least 6 characters required");
+      } else {
+        try {
+          const data = await fetch("/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-            body:
-              JSON.stringify({
-                email,password
-              })
-          })
-          const res = await data.json()
-          if(res.status == 200){
-            localStorage.setItem("userdatatoken",res.result.token)
-            navigate("/home")
-            setInputValue({...inputVal,email:"",password:""})
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          });
+    
+          const res = await data.json();
+          
+          if (res.status === 200) {
+            localStorage.setItem("userdatatoken", res.result.token);
+            navigate("/home");
+            setInputValue({ ...inputVal, email: "", password: "" });
+          } else {
+            // Handle error cases
+            alert(res.error || "An error occurred");
           }
+        } catch (error) {
+          // Catch any other errors like network issues
+          console.error(error);
+          alert("An unexpected error occurred");
         }
-    }
+      }
+    };
+      
   return (
     <>
       <div className="form_container">
@@ -70,6 +83,7 @@ function Login() {
             />
             <div className="showpass" onClick={()=> setShowPass(!showPass)}>{!showPass ? "Show" : "Hide" }</div>
           </div>
+          <NavLink to={"/forgot-password"}><button className="btn" >Forgot Password</button></NavLink>
           <button className="btn" onClick={loginUser}>Login</button>
           <p>Didn't have account <Link to="/register">Signup</Link></p>
         </form>

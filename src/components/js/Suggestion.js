@@ -5,97 +5,84 @@ const SuggestionPage = () => {
   const location = useLocation();
   const expense = location.state?.expense;
 
-  // Use state to track each category of expenses
-  const [salary, setSalary] = useState(expense.monthlyAmount || 0);
-  const [rentAmount, setRentAmount] = useState(expense.rentAmount || 0);
-  const [entertainmentAmount, setEntertainmentAmount] = useState(expense.entertainmentAmount || 0);
-  const [foodAmount, setFoodAmount] = useState(expense.foodAmount || 0);
-  const [utilitiesAmount, setUtilitiesAmount] = useState(expense.utilitiesAmount || 0);
-  const [personalAmount, setPersonalAmount] = useState(expense.personalAmount || 0);
-  const [otherAmount, setOtherAmount] = useState(expense.othersAmount || 0);
+  const [salary, setSalary] = useState(expense?.monthlyAmount || 0);
+  const [rentAmount, setRentAmount] = useState(expense?.rentAmount || 0);
+  const [entertainmentAmount, setEntertainmentAmount] = useState(expense?.entertainmentAmount || 0);
+  const [foodAmount, setFoodAmount] = useState(expense?.foodAmount || 0);
+  const [utilitiesAmount, setUtilitiesAmount] = useState(expense?.utilitiesAmount || 0);
+  const [personalAmount, setPersonalAmount] = useState(expense?.personalAmount || 0);
+  const [otherAmount, setOtherAmount] = useState(expense?.othersAmount || 0);
 
-  // Handle dynamic changes to expenses
   const handleExpenseChange = (field, value) => {
+    const numericValue = parseFloat(value) || 0;
     switch (field) {
       case "salary":
-        setSalary(value);
+        setSalary(numericValue);
         break;
       case "rentAmount":
-        setRentAmount(value);
+        setRentAmount(numericValue);
         break;
       case "entertainmentAmount":
-        setEntertainmentAmount(value);
+        setEntertainmentAmount(numericValue);
         break;
       case "foodAmount":
-        setFoodAmount(value);
+        setFoodAmount(numericValue);
         break;
       case "utilitiesAmount":
-        setUtilitiesAmount(value);
+        setUtilitiesAmount(numericValue);
         break;
       case "personalAmount":
-        setPersonalAmount(value);
+        setPersonalAmount(numericValue);
         break;
       case "otherAmount":
-        setOtherAmount(value);
+        setOtherAmount(numericValue);
         break;
       default:
         break;
     }
   };
 
-  // Total Expenses Calculation
   const totalExpenses = rentAmount + entertainmentAmount + foodAmount + utilitiesAmount + personalAmount + otherAmount;
-  
-  // Calculate Savings (remaining salary after expenses)
   const savings = salary - totalExpenses;
 
-  // Suggestions based on expenses and salary
   const getSuggestions = () => {
-    let suggestion = "";
+    const suggestions = [];
 
-    // Entertainment is too high (max 20% of salary)
     if (entertainmentAmount > salary * 0.2) {
-      suggestion += "You are spending too much on entertainment. Consider reducing your entertainment expenses. ";
+      suggestions.push("You are spending too much on entertainment. Consider reducing your entertainment expenses.");
     }
 
-    // Food is too low (at least 10% of salary)
     if (foodAmount < salary * 0.1) {
-      suggestion += "You are spending too little on food. Consider increasing your food budget for better nutrition. ";
+      suggestions.push("You are spending too little on food. Consider increasing your food budget for better nutrition.");
     }
 
-    // Utilities too low (at least 5% of salary)
     if (utilitiesAmount < salary * 0.05) {
-      suggestion += "You are spending too little on utilities. Ensure you're budgeting enough for essential services. ";
+      suggestions.push("You are spending too little on utilities. Ensure you're budgeting enough for essential services.");
     }
 
-    // Rent suggestions if owning a house (set rentAmount to 0 if own house)
     if (rentAmount === 0) {
-      suggestion += "You own your house! Rent expenses are saved. ";
+      suggestions.push("You own your house! Rent expenses are saved.");
     }
 
-    // Check if total expenses exceed salary
     if (totalExpenses > salary) {
-      suggestion += "Your total expenses exceed your monthly salary. Try to reduce spending in some areas to avoid overspending.";
+      suggestions.push("Your total expenses exceed your monthly salary. Try to reduce spending in some areas to avoid overspending.");
     }
 
-    // Saving suggestion
     if (savings > 0) {
-      suggestion += `You can save ₹${savings} this month! Try to save even more by reducing unnecessary expenses. `;
+      suggestions.push(`You can save ₹${savings} this month! Try to save even more by reducing unnecessary expenses.`);
     } else {
-      suggestion += "Consider reducing your expenses to create savings this month. ";
+      suggestions.push("Consider reducing your expenses to create savings this month.");
     }
 
-    // Provide suggestion to save more
     if (savings < salary * 0.2) {
-      suggestion += "It's recommended to save at least 20% of your salary for future security. Try to increase your savings. ";
+      suggestions.push("It's recommended to save at least 20% of your salary for future security. Try to increase your savings.");
     }
 
-    // If no suggestions, everything seems balanced
-    if (!suggestion) {
-      suggestion = "Your expenses seem well balanced. Keep up the good work!";
+    if (suggestions.length === 0) {
+      suggestions.push("Your expenses seem well balanced. Keep up the good work!");
     }
 
-    return suggestion;
+    return suggestions;
   };
 
   return (
@@ -110,7 +97,7 @@ const SuggestionPage = () => {
         />
       </div>
       <div>
-        <label>Rent Amount (0 if owned house):</label>
+        <label>Rent Amount:</label>
         <input
           type="number"
           value={rentAmount}
@@ -158,7 +145,12 @@ const SuggestionPage = () => {
         />
       </div>
 
-      <p>{getSuggestions()}</p>
+      <h3>Suggestions</h3>
+      <ul>
+        {getSuggestions().map((suggestion, index) => (
+          <li key={index}>{suggestion}</li>
+        ))}
+      </ul>
     </div>
   );
 };
