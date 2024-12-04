@@ -75,7 +75,7 @@ const Expense = () => {
   });
   const [selectRadio, setSelectRadio] = useState("own");
   const [errors, setErrors] = useState({});
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("january");
   const [showTable, setShowTable] = useState(false);
   const setVal = (e) => {
     const { name, value } = e.target;
