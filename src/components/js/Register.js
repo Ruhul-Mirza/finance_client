@@ -9,7 +9,6 @@ function Register() {
     email: "",
     password: "",
     cpassword: "",
-    dob: "" 
   });
 
   const setVal = (e) => {
@@ -24,7 +23,7 @@ function Register() {
 
   const userData = async (e) => {
     e.preventDefault();
-    const { fname, email, password, cpassword, dob } = inputVal;
+    const { fname, email, password, cpassword } = inputVal;
 
     if (fname === "") {
       alert("Please enter your fullname");
@@ -40,8 +39,6 @@ function Register() {
       alert("Please confirm your password");
     } else if (password !== cpassword) {
       alert("Passwords do not match");
-    } else if (dob === "") {
-      alert("Please select your date of birth");
     } else {
       const data = await fetch("/register", {
         method: "POST",
@@ -53,13 +50,12 @@ function Register() {
           email,
           password,
           cpassword,
-          dob 
         })
       });
       const res = await data.json();
       alert("User Successfully registered")
 
-      setInputValue({ ...inputVal, fname: "", email: "", password: "", cpassword: "", dob: "" });
+      setInputValue({ ...inputVal, fname: "", email: "", password: "", cpassword: ""});
     }
   };
 
@@ -88,15 +84,6 @@ function Register() {
             onChange={setVal}
             value={inputVal.email}
             placeholder="Enter your email"
-          />
-          <label htmlFor="dob">Date of Birth</label>
-          <input
-            type="date"
-            name="dob"
-            required
-            id="dob"
-            onChange={setVal}
-            value={inputVal.dob}
           />
           <div className="form_middle">
             <label htmlFor="password">Password</label>
