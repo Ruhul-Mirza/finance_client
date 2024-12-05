@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/js/Login";
-import Register from "./components/js/Register";
+import SignupForm from "./components/auth/SignupForm";
 import Home from "./components/js/Home";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Error from "./components/js/Error";
 import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
-import Expense from "./components/js/Expense";
+import ExpenseForm from "./components/Expense/Expense";
 import PieChart from "./components/js/Chart";
 import SuggestionPage from "./components/js/Suggestion";
 
@@ -56,10 +56,10 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<SignupForm />} />
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Error />} />
-            <Route path="/expense" element={<Expense/>}></Route>
+            <Route path="/expense" element={<ExpenseForm/>}></Route>
             <Route path="/chart/:expenseId" element={<PieChart/>}></Route>
             <Route path="/suggestion/:id" element={<SuggestionPage />} />
           </Routes>

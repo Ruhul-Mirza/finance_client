@@ -1,17 +1,13 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { LoginContext } from "../context/Context";
-import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import logo from "../../images/logo2.jpeg";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const Header = () => {
   const navigate = useNavigate();
   const { loginData, setLoginData } = useContext(LoginContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -34,10 +30,10 @@ const Header = () => {
         Authorization: token,
         Accept: "application/json",
       },
-      crendential: "include",
+      credentials: "include",
     });
     const data = await res.json();
-    if (data.status == 201) {
+    if (data.status === 201) {
       console.log("logout");
       localStorage.removeItem("userdatatoken");
       setLoginData(false);
@@ -54,96 +50,59 @@ const Header = () => {
   const redirectHome = () => {
     navigate("/home");
   };
+
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          background: "#faf5f1",
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        {/* Logo Section */}
-        {/* <span
-          style={{
-            display: "inline-block",
-            background: "transparent",
-            mixBlendMode: "multiply",
-          }}
-        >
-          <img
-            src={logo}
-            alt="Budget Logo"
-            height="80px"
-            style={{ marginTop: "20px" }}
-          />
-        </span> */}
+      <header className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo and Title */}
+            <div className="flex items-center space-x-4">
+              <span className="text-3xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-violet-200">
+                BUDGET BUDDY
+              </span>
+              <span className="hidden sm:block text-xs text-indigo-200">
+                Track your expenses wisely
+              </span>
+            </div>
 
-        {/* "Budget Buddy" Text */}
-        <span
-          style={{
-            fontSize: "36px",
-            letterSpacing: "5px",
-            textShadow: "2px 2px 6px #a41f13",
-            fontWeight: "400",
-            color: "#a41f13",
-          }}
-        >
-          BUDGET BUDDY
-        </span>
-
-        {/* Avatar Section */}
-        <span>
-          {loginData && loginData.ValidUser ? (
-            <Avatar
-              style={{
-                background: "#a41f13",
-                color: "#faf5f1",
-                cursor: "pointer",
-              }}
+            {/* Profile Button */}
+            <button
               onClick={handleClick}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-700 hover:to-violet-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
             >
-              {loginData.ValidUser.fname[0].toUpperCase()}
-            </Avatar>
-          ) : (
-            <Avatar
-              style={{
-                background: "#a41f13",
-                cursor: "pointer",
-              }}
-              onClick={handleClick}
-            />
-          )}
-        </span>
-      </div>
+              {loginData && loginData.ValidUser ? (
+                <span className="text-lg font-semibold">
+                  {loginData.ValidUser.fname[0].toUpperCase()}
+                </span>
+              ) : (
+                <span className="text-lg font-semibold">?</span>
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
 
-      {/* Dropdown Menu */}
+      {/* Profile Menu */}
       <Menu
-        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
+        PaperProps={{
+          className: "mt-2 shadow-xl rounded-lg border border-gray-100",
+          elevation: 0,
         }}
-        style={{
-          borderRadius: "8px",
-          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
-        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {loginData.ValidUser ? (
+        {loginData?.ValidUser ? (
           <>
             <MenuItem
               onClick={() => {
                 redirectHome();
                 handleClose();
               }}
-              style={{
-                color: "#a41f13",
-                fontWeight: "bold",
-              }}
+              className="hover:bg-indigo-50 text-gray-700 font-medium"
             >
               Profile
             </MenuItem>
@@ -153,32 +112,21 @@ const Header = () => {
                 logOut();
                 handleClose();
               }}
-              style={{
-                color: "#a41f13",
-                fontWeight: "bold",
-                display: "flex",
-                alignItems: "center", 
-              }}
+              className="hover:bg-indigo-50 text-gray-700 font-medium flex items-center space-x-2"
             >
-              Logout
-              <ExitToAppIcon style={{ marginLeft: "8px" }} />
+              <span>Logout</span>
             </MenuItem>
           </>
         ) : (
-          <>
-            <MenuItem
-              onClick={() => {
-                redirectError();
-                handleClose();
-              }}
-              style={{
-                color: "#a41f13",
-                fontWeight: "bold",
-              }}
-            >
-              Profile
-            </MenuItem>
-          </>
+          <MenuItem
+            onClick={() => {
+              redirectError();
+              handleClose();
+            }}
+            className="hover:bg-indigo-50 text-gray-700 font-medium"
+          >
+            Profile
+          </MenuItem>
         )}
       </Menu>
     </>
