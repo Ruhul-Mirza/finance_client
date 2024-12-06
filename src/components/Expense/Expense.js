@@ -3,7 +3,7 @@ import { Home, DollarSign, Coffee, Film, Lightbulb, User, Package, Wallet, Chevr
 import { expenseSchema } from './expenseValidation';
 import ExpenseInput from './ExpenseInput';
 import MonthSelect from './MonthSelect';
-import ExpenseData from './ExpenseTable';
+import { NavLink } from 'react-router-dom';
 
 const ExpenseForm = () => {
   const [inputVal, setInputValue] = useState({
@@ -263,17 +263,26 @@ const ExpenseForm = () => {
                 >
                   Save Expenses
                 </button>
-                <button
+                <NavLink to={"/expenseTable"}>
+                {/* <button
+                  type="button"
+                  className="flex-1 border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full hover:bg-indigo-600 hover:text-white"
+                >
+                  View Expenses
+                </button> */}
+                CLick me
+                </NavLink>
+                {/* <button
                   type="button"
                   onClick={() => setShowTable(!showTable)}
                   className="flex-1 border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full hover:bg-indigo-600 hover:text-white"
                 >
                   View Expenses
-                </button>
+                </button> */}
               </div>
             </form>
 
-            {showTable && <ExpenseData />}
+            {/* {showTable && <ExpenseData />} */}
           </div>
         </div>
       </div>

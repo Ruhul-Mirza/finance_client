@@ -9,6 +9,7 @@ import Error from "./components/js/Error";
 import Header from "./components/js/Header";
 import { LoginContext } from "./components/context/Context";
 import ExpenseForm from "./components/Expense/Expense";
+import ExpenseTable from "./components/Expense/ExpenseTable";
 import PieChart from "./components/js/Chart";
 import SuggestionPage from "./components/js/Suggestion";
 
@@ -60,6 +61,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="*" element={<Error />} />
             <Route path="/expense" element={<ExpenseForm/>}></Route>
+            <Route path="/expenseTable" element={<ExpenseTable/>}></Route>
             <Route path="/chart/:expenseId" element={<PieChart/>}></Route>
             <Route path="/suggestion/:id" element={<SuggestionPage />} />
           </Routes>
