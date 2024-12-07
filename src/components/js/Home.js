@@ -58,6 +58,7 @@ const Home = () => {
         </Box>
     )}</div>
     <NavLink to="/expense"><button>Expenses</button></NavLink>
+    
     </>
   )
 }

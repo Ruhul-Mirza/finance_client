@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Wallet } from "lucide-react";
+import { SuggestionList } from "./SuggestionList";
+import { ExpenseSummaryCard } from "./ExpenseSummaryCard";
 
 const SuggestionPage = () => {
   const location = useLocation();
@@ -13,35 +16,6 @@ const SuggestionPage = () => {
   const [personalAmount, setPersonalAmount] = useState(expense?.personalAmount || 0);
   const [otherAmount, setOtherAmount] = useState(expense?.othersAmount || 0);
 
-  const handleExpenseChange = (field, value) => {
-    const numericValue = parseFloat(value) || 0;
-    switch (field) {
-      case "salary":
-        setSalary(numericValue);
-        break;
-      case "rentAmount":
-        setRentAmount(numericValue);
-        break;
-      case "entertainmentAmount":
-        setEntertainmentAmount(numericValue);
-        break;
-      case "foodAmount":
-        setFoodAmount(numericValue);
-        break;
-      case "utilitiesAmount":
-        setUtilitiesAmount(numericValue);
-        break;
-      case "personalAmount":
-        setPersonalAmount(numericValue);
-        break;
-      case "otherAmount":
-        setOtherAmount(numericValue);
-        break;
-      default:
-        break;
-    }
-  };
-
   const totalExpenses = rentAmount + entertainmentAmount + foodAmount + utilitiesAmount + personalAmount + otherAmount;
   const savings = salary - totalExpenses;
 
@@ -49,108 +23,102 @@ const SuggestionPage = () => {
     const suggestions = [];
 
     if (entertainmentAmount > salary * 0.2) {
-      suggestions.push("You are spending too much on entertainment. Consider reducing your entertainment expenses.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-rose-500" />,
+        message: "You are spending too much on entertainment. Consider reducing your entertainment expenses.",
+        type: "warning"
+      });
     }
 
     if (foodAmount < salary * 0.1) {
-      suggestions.push("You are spending too little on food. Consider increasing your food budget for better nutrition.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-amber-500" />,
+        message: "You are spending too little on food. Consider increasing your food budget for better nutrition.",
+        type: "warning"
+      });
     }
 
     if (utilitiesAmount < salary * 0.05) {
-      suggestions.push("You are spending too little on utilities. Ensure you're budgeting enough for essential services.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-amber-500" />,
+        message: "You are spending too little on utilities. Ensure you're budgeting enough for essential services.",
+        type: "warning"
+      });
     }
 
     if (rentAmount === 0) {
-      suggestions.push("You own your house! Rent expenses are saved.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-green-500" />,
+        message: "You own your house! Rent expenses are saved.",
+        type: "success"
+      });
     }
 
     if (totalExpenses > salary) {
-      suggestions.push("Your total expenses exceed your monthly salary. Try to reduce spending in some areas to avoid overspending.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-rose-500" />,
+        message: "Your total expenses exceed your monthly salary. Try to reduce spending in some areas to avoid overspending.",
+        type: "danger"
+      });
     }
 
     if (savings > 0) {
-      suggestions.push(`You can save ₹${savings} this month! Try to save even more by reducing unnecessary expenses.`);
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-green-500" />,
+        message: `You can save ₹${savings} this month! Try to save even more by reducing unnecessary expenses.`,
+        type: "success"
+      });
     } else {
-      suggestions.push("Consider reducing your expenses to create savings this month.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-amber-500" />,
+        message: "Consider reducing your expenses to create savings this month.",
+        type: "warning"
+      });
     }
 
     if (savings < salary * 0.2) {
-      suggestions.push("It's recommended to save at least 20% of your salary for future security. Try to increase your savings.");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-amber-500" />,
+        message: "It's recommended to save at least 20% of your salary for future security. Try to increase your savings.",
+        type: "warning"
+      });
     }
 
     if (suggestions.length === 0) {
-      suggestions.push("Your expenses seem well balanced. Keep up the good work!");
+      suggestions.push({
+        icon: <Wallet className="w-5 h-5 text-green-500" />,
+        message: "Your expenses seem well balanced. Keep up the good work!",
+        type: "success"
+      });
     }
 
     return suggestions;
   };
 
   return (
-    <div>
-      <h2>Expense Suggestion</h2>
-      <div>
-        <label>Monthly Salary:</label>
-        <input
-          type="number"
-          value={salary}
-          onChange={(e) => handleExpenseChange("salary", e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Rent Amount:</label>
-        <input
-          type="number"
-          value={rentAmount}
-          onChange={(e) => handleExpenseChange("rentAmount", e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Entertainment Expenses:</label>
-        <input
-          type="number"
-          value={entertainmentAmount}
-          onChange={(e) => handleExpenseChange("entertainmentAmount", e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Food Expenses:</label>
-        <input
-          type="number"
-          value={foodAmount}
-          onChange={(e) => handleExpenseChange("foodAmount", e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Utilities Expenses:</label>
-        <input
-          type="number"
-          value={utilitiesAmount}
-          onChange={(e) => handleExpenseChange("utilitiesAmount", e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Personal Expenses:</label>
-        <input
-          type="number"
-          value={personalAmount}
-          onChange={(e) => handleExpenseChange("personalAmount", e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Other Expenses:</label>
-        <input
-          type="number"
-          value={otherAmount}
-          onChange={(e) => handleExpenseChange("otherAmount", e.target.value)}
-        />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-2 rounded-xl shadow-lg shadow-violet-600/20">
+            <Wallet className="w-6 h-6 text-white" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-800">Expense Suggestions</h1>
+        </div>
 
-      <h3>Suggestions</h3>
-      <ul>
-        {getSuggestions().map((suggestion, index) => (
-          <li key={index}>{suggestion}</li>
-        ))}
-      </ul>
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <ExpenseSummaryCard
+              salary={salary}
+              totalExpenses={totalExpenses}
+              savings={savings}
+            />
+          </div>
+
+          <div className="space-y-6">
+            <SuggestionList suggestions={getSuggestions()} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
