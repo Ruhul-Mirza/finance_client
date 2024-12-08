@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { LoginContext } from "../context/Context";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { Wallet2, UserCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -55,18 +56,22 @@ const Header = () => {
     <>
       <header className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex items-center justify-between h-16">
             {/* Logo and Title */}
-            <div className="flex items-center space-x-4">
-              <span className="text-3xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-violet-200">
-                BUDGET BUDDY
-              </span>
-              <span className="hidden sm:block text-xs text-indigo-200">
-                Track your expenses wisely
-              </span>
+            <div className="flex items-center space-x-3">
+              <Wallet2 className="h-8 w-8 text-indigo-200" />
+              <div className="flex flex-col">
+                <h1 className="text-xl font-bold tracking-wider">
+                  Budget Buddy
+                </h1>
+                <span className="text-xs text-indigo-200 hidden sm:block">
+                  Track your expenses wisely
+                </span>
+              </div>
             </div>
 
             {/* Profile Button */}
+            <div className="flex items-center">
             <button
               onClick={handleClick}
               className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-700 hover:to-violet-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
@@ -76,9 +81,13 @@ const Header = () => {
                   {loginData.ValidUser.fname[0].toUpperCase()}
                 </span>
               ) : (
-                <span className="text-lg font-semibold">?</span>
+                <span className="text-lg font-semibold">
+                  ?
+                </span>
               )}
             </button>
+
+            </div>
           </div>
         </div>
       </header>
@@ -130,6 +139,7 @@ const Header = () => {
         )}
       </Menu>
     </>
+
   );
 };
 

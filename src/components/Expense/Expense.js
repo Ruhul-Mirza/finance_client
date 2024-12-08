@@ -517,14 +517,6 @@ const Expense = () => {
                   Save Expenses
                 </button>
 
-                <NavLink to={"/expenseTable"}>
-                  <button
-                    type="button"
-                    className="flex-1 border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full hover:bg-indigo-600 hover:text-white"
-                  >
-                    View Expenses
-                  </button>
-                </NavLink>
               </div>
             </form>
           </div>

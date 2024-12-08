@@ -36,15 +36,6 @@ const ExpenseTable = () => {
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   };
 
-  // Example usage
-  const text1 = "january"; // 'January'
-  const text2 = "own rent"; // 'Own rent'
-  const text3 = "october"; // 'October'
-
-  console.log(capitalizeFirstLetter(text1)); // January
-  console.log(capitalizeFirstLetter(text2)); // Own rent
-  console.log(capitalizeFirstLetter(text3)); // October
-
   const homes = ["own", "rent"];
 
   useEffect(() => {
@@ -187,28 +178,18 @@ const ExpenseTable = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="p-4 md:p-8 space-y-8 max-w-[1400px] mx-auto">
-        <div className="space-y-4 md:space-y-6 lg:space-y-8">
-          <h1 className="text-5xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Smart Expense Tracker
-          </h1>
-          <p className="text-gray-700 text-xl sm:text-lg md:text-xl lg:text-2xl font-medium tracking-wide transition-all duration-300 ease-in-out hover:text-gray-800">
-            Take control of your finances with smart insights and tracking
-          </p>
-        </div>
 
         <ExpenseStats expenseData={expenseData} />
-        <div className="flex flex-col-reverse justify-between items-center md:flex-row">
-          <h2 className="text-3xl font-extrabold text-gray-800 bg-gradient-to-r from-blue-500 to-purple-600 p-[2px] mt-5 border-transparent bg-clip-border">
-            <span className="bg-gray-100 px-4 py-2">Expense History</span>
-          </h2>
-          <NavLink
-            to={"/expense"}
-            className="inline-flex items-center mt-4 md:mt-0 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg transition-all hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 font-medium"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Add Expense
-          </NavLink>
-        </div>
+        <div className="flex justify-end mt-6 md:mt-8">
+  <NavLink
+    to={"/expense"}
+    className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-600 drop-shadow-lg text-white rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:from-blue-700 hover:to-purple-800 hover:shadow-xl hover:shadow-blue-500/30 font-medium"
+  >
+    <Plus className="h-5 w-5 mr-3" />
+    Add Expense
+  </NavLink>
+</div>
+
 
         <div className="overflow-x-auto border border-gray-200 rounded-lg shadow-lg bg-gray-50">
           <table className="w-full text-sm text-left table-auto">
