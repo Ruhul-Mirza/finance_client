@@ -56,7 +56,7 @@ export function ExpenseStats({ expenseData }) {
       <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200 shadow-lg">
         <div className="flex items-center gap-4">
           <TrendingUp className="h-8 w-8 text-green-600" />
-          <h3 className="font-semibold text-green-900 text-xl">Active Months</h3>
+          <h3 className="font-semibold text-green-900 text-xl">Recorded Months</h3>
         </div>
         <p className="text-3xl font-bold text-green-700 mt-3">
           {expenseData.reduce((total, user) => total + user.expenses.length, 0)}
